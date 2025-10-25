@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programação Linear</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/glpk.js@4.65.0/dist/glpk.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🔹 Resolvedor de Programação Linear</h1>
+
+    <div class="form-section">
+      <label>Tipo de problema:</label>
+      <select id="tipo">
+        <option value="max">Maximizar</option>
+        <option value="min">Minimizar</option>
+      </select>
+
+      <label>Função Objetivo:</label>
+      <input id="objetivo" placeholder="Ex: 12x1 + 60x2" />
+
+      <label>Restrições:</label>
+      <textarea id="restricoes" rows="5" placeholder="Ex:
+0.25x1 + 0.5x2 <= 36
+0.1x1 + 0.75x2 <= 22
+0.1x1 + 0.4x2 <= 15"></textarea>
+
+      <button onclick="resolver()">Resolver</button>
+    </div>
+
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
