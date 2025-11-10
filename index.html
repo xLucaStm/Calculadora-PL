@@ -3,409 +3,764 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Programação Linear</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <title>TechSolutions - Soluções em Tecnologia</title>
     <style>
-        .gradient-bg {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in;
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #667eea;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #667eea;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Login Section */
+        .login-section {
+            padding: 4rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .login-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #667eea;
+        }
+
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Table Section */
+        .table-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .table-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #667eea;
+        }
+
+        table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .action-button {
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .action-button:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-edit {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        /* Messages */
+        .message {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+            animation: slideDown 0.5s;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 100px;
+            }
+        }
+
+        /* Search Bar */
+        .search-bar {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #667eea;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        /* Counter */
+        .counter-section {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+        }
+
+        .counter {
+            font-size: 3rem;
+            color: #667eea;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .counter-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .counter-button {
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .counter-button:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-increment {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-decrement {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-reset {
+            background: #667eea;
+            color: white;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-    <div class="container mx-auto p-6 max-w-7xl">
-        <!-- Header -->
-        <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
-            <div class="flex items-center gap-4 mb-2">
-                <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                </svg>
-                <h1 class="text-4xl font-bold text-gray-800">Programação Linear</h1>
-            </div>
-            <p class="text-gray-600 ml-14">Resolva problemas de otimização com duas variáveis de decisão</p>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo" id="logo">TechSolutions</div>
+            <ul class="nav-links">
+                <li><a href="#home" id="nav-home">Início</a></li>
+                <li><a href="#services" id="nav-services">Serviços</a></li>
+                <li><a href="#contact" id="nav-contact">Contato</a></li>
+                <li><a href="#login" id="nav-login">Login</a></li>
+                <li><a href="#data" id="nav-data">Dados</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1 id="hero-title">Transformando Ideias em Soluções Digitais</h1>
+            <p id="hero-subtitle">Desenvolvemos software sob medida para o seu negócio</p>
+            <button class="cta-button" id="cta-button">Solicite um Orçamento</button>
         </div>
+    </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Input Section -->
-            <div class="bg-white rounded-2xl shadow-xl p-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Configuração do Problema</h2>
-                
-                <!-- Função Objetivo -->
-                <div class="mb-6 p-4 bg-indigo-50 rounded-lg">
-                    <label class="block text-sm font-semibold text-gray-700 mb-3">Função Objetivo</label>
-                    <div class="flex flex-wrap items-center gap-3 mb-3">
-                        <select id="objectiveType" class="px-4 py-2 border-2 border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                            <option value="max">Maximizar</option>
-                            <option value="min">Minimizar</option>
-                        </select>
-                        <span class="font-semibold text-gray-700">Z =</span>
-                        <input type="number" step="any" id="c1" value="12" class="w-20 px-3 py-2 border-2 border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                        <span class="font-semibold text-gray-700">X₁ +</span>
-                        <input type="number" step="any" id="c2" value="60" class="w-20 px-3 py-2 border-2 border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                        <span class="font-semibold text-gray-700">X₂</span>
-                    </div>
-                </div>
-
-                <!-- Restrições -->
-                <div class="mb-6">
-                    <label class="block text-sm font-semibold text-gray-700 mb-3">Restrições (Sujeito a:)</label>
-                    <div id="constraintsContainer" class="space-y-3"></div>
-                    <button onclick="addConstraint()" class="mt-3 w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-semibold">
-                        + Adicionar Restrição
-                    </button>
-                </div>
-
-                <!-- Botão Resolver -->
-                <button onclick="solve()" class="w-full px-6 py-4 gradient-bg text-white rounded-xl hover:opacity-90 transition-all font-bold text-lg shadow-lg">
-                    <svg class="inline w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                    </svg>
-                    Resolver Problema
-                </button>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2>Nossos Serviços</h2>
+        <div class="services-grid">
+            <div class="service-card" id="service-1">
+                <div class="service-icon">💻</div>
+                <h3>Desenvolvimento Web</h3>
+                <p>Criamos sites e aplicações web modernas, responsivas e otimizadas para seu negócio.</p>
             </div>
-
-            <!-- Results Section -->
-            <div class="bg-white rounded-2xl shadow-xl p-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Resultado</h2>
-                <div id="resultContainer">
-                    <div class="text-center py-12 text-gray-400">
-                        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <p>Configure o problema e clique em "Resolver"</p>
-                    </div>
-                </div>
+            <div class="service-card" id="service-2">
+                <div class="service-icon">📱</div>
+                <h3>Aplicativos Mobile</h3>
+                <p>Desenvolvemos apps nativos e híbridos para iOS e Android com a melhor experiência.</p>
+            </div>
+            <div class="service-card" id="service-3">
+                <div class="service-icon">☁️</div>
+                <h3>Cloud Computing</h3>
+                <p>Soluções em nuvem escaláveis e seguras para otimizar sua infraestrutura.</p>
             </div>
         </div>
+    </section>
 
-        <!-- Graph Section -->
-        <div id="graphSection" class="mt-6 bg-white rounded-2xl shadow-xl p-8 hidden">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Visualização Gráfica</h2>
-            <div id="graph" style="height: 500px;"></div>
+    <!-- Counter Section -->
+    <section class="counter-section">
+        <h2>Contador Interativo</h2>
+        <div class="counter" id="counter">0</div>
+        <div class="counter-buttons">
+            <button class="counter-button btn-increment" id="btn-increment">+ Incrementar</button>
+            <button class="counter-button btn-decrement" id="btn-decrement">- Decrementar</button>
+            <button class="counter-button btn-reset" id="btn-reset">↻ Resetar</button>
         </div>
-    </div>
+    </section>
 
+    <!-- Contact Form -->
+    <section class="contact" id="contact">
+        <h2>Entre em Contato</h2>
+        <form class="contact-form" id="contact-form">
+            <div id="contact-message" class="message"></div>
+            
+            <div class="form-group">
+                <label for="name">Nome Completo *</label>
+                <input type="text" id="name" name="name" required placeholder="Seu nome completo">
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail *</label>
+                <input type="email" id="email" name="email" required placeholder="seu@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Telefone</label>
+                <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000">
+            </div>
+
+            <div class="form-group">
+                <label for="service">Serviço de Interesse</label>
+                <select id="service" name="service">
+                    <option value="">Selecione um serviço</option>
+                    <option value="web">Desenvolvimento Web</option>
+                    <option value="mobile">Aplicativos Mobile</option>
+                    <option value="cloud">Cloud Computing</option>
+                    <option value="consulting">Consultoria</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Mensagem *</label>
+                <textarea id="message" name="message" required placeholder="Conte-nos sobre seu projeto..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-button" id="submit-contact">Enviar Mensagem</button>
+        </form>
+    </section>
+
+    <!-- Login Section -->
+    <section class="login-section" id="login">
+        <h2>Área do Cliente</h2>
+        <form class="login-form" id="login-form">
+            <div id="login-message" class="message"></div>
+            
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" name="username" required placeholder="Digite seu usuário">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" required placeholder="Digite sua senha">
+            </div>
+
+            <button type="submit" class="submit-button" id="submit-login">Entrar</button>
+        </form>
+    </section>
+
+    <!-- Table Section -->
+    <section class="table-section" id="data">
+        <h2>Projetos Recentes</h2>
+        
+        <div class="search-bar">
+            <input type="text" id="search-input" class="search-input" placeholder="🔍 Buscar projetos...">
+        </div>
+
+        <table id="projects-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Projeto</th>
+                    <th>Cliente</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="projects-tbody">
+                <tr data-id="1">
+                    <td>1</td>
+                    <td>E-commerce Fashion</td>
+                    <td>Loja Virtual ABC</td>
+                    <td>Concluído</td>
+                    <td>
+                        <button class="action-button btn-edit" onclick="editProject(1)">Editar</button>
+                        <button class="action-button btn-delete" onclick="deleteProject(1)">Excluir</button>
+                    </td>
+                </tr>
+                <tr data-id="2">
+                    <td>2</td>
+                    <td>App Delivery</td>
+                    <td>Restaurante XYZ</td>
+                    <td>Em Andamento</td>
+                    <td>
+                        <button class="action-button btn-edit" onclick="editProject(2)">Editar</button>
+                        <button class="action-button btn-delete" onclick="deleteProject(2)">Excluir</button>
+                    </td>
+                </tr>
+                <tr data-id="3">
+                    <td>3</td>
+                    <td>Sistema ERP</td>
+                    <td>Indústria Tech</td>
+                    <td>Em Andamento</td>
+                    <td>
+                        <button class="action-button btn-edit" onclick="editProject(3)">Editar</button>
+                        <button class="action-button btn-delete" onclick="deleteProject(3)">Excluir</button>
+                    </td>
+                </tr>
+                <tr data-id="4">
+                    <td>4</td>
+                    <td>Portal Educacional</td>
+                    <td>Escola Digital</td>
+                    <td>Planejamento</td>
+                    <td>
+                        <button class="action-button btn-edit" onclick="editProject(4)">Editar</button>
+                        <button class="action-button btn-delete" onclick="deleteProject(4)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p id="footer-text">&copy; 2024 TechSolutions - Todos os direitos reservados</p>
+    </footer>
+
+    <!-- JavaScript -->
     <script>
-        var constraints = [
-            { a1: 0.25, a2: 0.5, b: 36, type: '<=' },
-            { a1: 0.1, a2: 0.75, b: 22, type: '<=' },
-            { a1: 0.1, a2: 0.4, b: 15, type: '<=' }
-        ];
+        // Counter functionality
+        let counter = 0;
+        const counterDisplay = document.getElementById('counter');
+        const btnIncrement = document.getElementById('btn-increment');
+        const btnDecrement = document.getElementById('btn-decrement');
+        const btnReset = document.getElementById('btn-reset');
 
-        function renderConstraints() {
-            var container = document.getElementById('constraintsContainer');
-            container.innerHTML = '';
+        btnIncrement.addEventListener('click', () => {
+            counter++;
+            counterDisplay.textContent = counter;
+        });
+
+        btnDecrement.addEventListener('click', () => {
+            counter--;
+            counterDisplay.textContent = counter;
+        });
+
+        btnReset.addEventListener('click', () => {
+            counter = 0;
+            counterDisplay.textContent = counter;
+        });
+
+        // CTA Button
+        document.getElementById('cta-button').addEventListener('click', () => {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Contact Form
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
             
-            constraints.forEach(function(c, index) {
-                var div = document.createElement('div');
-                div.className = 'flex flex-wrap items-center gap-2 p-3 bg-gray-50 rounded-lg';
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const messageDiv = document.getElementById('contact-message');
+            
+            if (name && email && message) {
+                messageDiv.className = 'message success show';
+                messageDiv.textContent = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
+                document.getElementById('contact-form').reset();
                 
-                var html = '<input type="number" step="any" value="' + c.a1 + '" onchange="updateConstraint(' + index + ', \'a1\', this.value)" class="w-20 px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">';
-                html += '<span class="text-gray-700">X₁ +</span>';
-                html += '<input type="number" step="any" value="' + c.a2 + '" onchange="updateConstraint(' + index + ', \'a2\', this.value)" class="w-20 px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">';
-                html += '<span class="text-gray-700">X₂</span>';
-                html += '<select onchange="updateConstraint(' + index + ', \'type\', this.value)" class="px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">';
-                html += '<option value="<=" ' + (c.type === '<=' ? 'selected' : '') + '>≤</option>';
-                html += '<option value=">=" ' + (c.type === '>=' ? 'selected' : '') + '>≥</option>';
-                html += '<option value="=" ' + (c.type === '=' ? 'selected' : '') + '>=</option>';
-                html += '</select>';
-                html += '<input type="number" step="any" value="' + c.b + '" onchange="updateConstraint(' + index + ', \'b\', this.value)" class="w-20 px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">';
-                
-                var disabled = constraints.length === 1 ? 'disabled' : '';
-                var disabledClass = constraints.length === 1 ? 'opacity-50 cursor-not-allowed' : '';
-                html += '<button onclick="removeConstraint(' + index + ')" class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors ' + disabledClass + '" ' + disabled + '>✕</button>';
-                
-                div.innerHTML = html;
-                container.appendChild(div);
-            });
-        }
-
-        function addConstraint() {
-            constraints.push({ a1: 1, a2: 1, b: 10, type: '<=' });
-            renderConstraints();
-        }
-
-        function removeConstraint(index) {
-            if (constraints.length > 1) {
-                constraints.splice(index, 1);
-                renderConstraints();
-            }
-        }
-
-        function updateConstraint(index, field, value) {
-            if (field === 'type') {
-                constraints[index][field] = value;
+                setTimeout(() => {
+                    messageDiv.classList.remove('show');
+                }, 5000);
             } else {
-                constraints[index][field] = parseFloat(value);
+                messageDiv.className = 'message error show';
+                messageDiv.textContent = 'Por favor, preencha todos os campos obrigatórios.';
             }
-        }
+        });
 
-        function findIntersection(c1, c2) {
-            var det = c1.a1 * c2.a2 - c1.a2 * c2.a1;
-            if (Math.abs(det) < 0.0001) return null;
+        // Login Form
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
             
-            var x1 = (c1.b * c2.a2 - c1.a2 * c2.b) / det;
-            var x2 = (c1.a1 * c2.b - c1.b * c2.a1) / det;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('login-message');
             
-            return { x1: x1, x2: x2 };
-        }
-
-        function checkFeasibility(point, constraintsList) {
-            for (var i = 0; i < constraintsList.length; i++) {
-                var c = constraintsList[i];
-                var value = c.a1 * point.x1 + c.a2 * point.x2;
-                if (c.type === '<=') {
-                    if (value > c.b + 0.001) return false;
-                } else if (c.type === '>=') {
-                    if (value < c.b - 0.001) return false;
-                } else {
-                    if (Math.abs(value - c.b) > 0.001) return false;
-                }
-            }
-            return point.x1 >= -0.001 && point.x2 >= -0.001;
-        }
-
-        function solve() {
-            try {
-                var objType = document.getElementById('objectiveType').value;
-                var c1 = parseFloat(document.getElementById('c1').value);
-                var c2 = parseFloat(document.getElementById('c2').value);
-                
-                var constraintsList = JSON.parse(JSON.stringify(constraints));
-                constraintsList.push(
-                    { a1: 1, a2: 0, b: 0, type: '>=' },
-                    { a1: 0, a2: 1, b: 0, type: '>=' }
-                );
-
-                var vertices = [];
-                
-                if (checkFeasibility({ x1: 0, x2: 0 }, constraintsList)) {
-                    vertices.push({ x1: 0, x2: 0 });
-                }
-
-                for (var i = 0; i < constraintsList.length; i++) {
-                    var c = constraintsList[i];
-                    if (c.a1 !== 0) {
-                        var point = { x1: c.b / c.a1, x2: 0 };
-                        if (checkFeasibility(point, constraintsList)) {
-                            vertices.push(point);
-                        }
-                    }
-                    if (c.a2 !== 0) {
-                        var point = { x1: 0, x2: c.b / c.a2 };
-                        if (checkFeasibility(point, constraintsList)) {
-                            vertices.push(point);
-                        }
-                    }
-                }
-
-                for (var i = 0; i < constraintsList.length; i++) {
-                    for (var j = i + 1; j < constraintsList.length; j++) {
-                        var point = findIntersection(constraintsList[i], constraintsList[j]);
-                        if (point && checkFeasibility(point, constraintsList)) {
-                            vertices.push(point);
-                        }
-                    }
-                }
-
-                var uniqueVertices = [];
-                for (var i = 0; i < vertices.length; i++) {
-                    var v = vertices[i];
-                    var isDuplicate = false;
-                    for (var j = 0; j < uniqueVertices.length; j++) {
-                        var u = uniqueVertices[j];
-                        if (Math.abs(u.x1 - v.x1) < 0.001 && Math.abs(u.x2 - v.x2) < 0.001) {
-                            isDuplicate = true;
-                            break;
-                        }
-                    }
-                    if (!isDuplicate) {
-                        uniqueVertices.push(v);
-                    }
-                }
-
-                if (uniqueVertices.length === 0) {
-                    showError('Região factível vazia! Verifique as restrições.');
-                    return;
-                }
-
-                var evaluatedVertices = uniqueVertices.map(function(v) {
-                    return {
-                        x1: v.x1,
-                        x2: v.x2,
-                        z: c1 * v.x1 + c2 * v.x2
-                    };
-                });
-
-                var optimal = evaluatedVertices[0];
-                for (var i = 1; i < evaluatedVertices.length; i++) {
-                    var current = evaluatedVertices[i];
-                    if (objType === 'max') {
-                        if (current.z > optimal.z) optimal = current;
-                    } else {
-                        if (current.z < optimal.z) optimal = current;
-                    }
-                }
-
-                displayResults(optimal, evaluatedVertices, objType);
-                plotGraph(constraintsList, evaluatedVertices, optimal, c1, c2);
-
-            } catch (error) {
-                showError('Erro ao processar. Verifique os valores inseridos.');
-            }
-        }
-
-        function displayResults(optimal, vertices, objType) {
-            var container = document.getElementById('resultContainer');
-            var sortedVertices = vertices.sort(function(a, b) { return b.z - a.z; });
-            
-            var html = '<div class="animate-fade-in">';
-            html += '<div class="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-lg p-6 mb-6">';
-            html += '<div class="flex items-center gap-3 mb-4">';
-            html += '<svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
-            html += '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
-            html += '</svg>';
-            html += '<h3 class="text-xl font-bold text-gray-800">Solução Ótima</h3>';
-            html += '</div>';
-            html += '<div class="space-y-2">';
-            html += '<p class="text-lg"><span class="font-semibold">X₁ =</span> <span class="text-indigo-600 font-bold">' + optimal.x1.toFixed(2) + '</span></p>';
-            html += '<p class="text-lg"><span class="font-semibold">X₂ =</span> <span class="text-indigo-600 font-bold">' + optimal.x2.toFixed(2) + '</span></p>';
-            html += '<p class="text-xl mt-4 pt-4 border-t-2 border-green-200"><span class="font-semibold">Z ' + (objType === 'max' ? 'máximo' : 'mínimo') + ' =</span> <span class="text-green-600 font-bold text-2xl">' + optimal.z.toFixed(2) + '</span></p>';
-            html += '</div></div>';
-
-            html += '<div class="bg-gray-50 rounded-lg p-6">';
-            html += '<h3 class="text-lg font-bold text-gray-800 mb-4">Vértices da Região Factível</h3>';
-            html += '<div class="space-y-2 max-h-64 overflow-y-auto">';
-            
-            for (var i = 0; i < sortedVertices.length; i++) {
-                var v = sortedVertices[i];
-                var isOptimal = Math.abs(v.z - optimal.z) < 0.001;
-                var divClass = isOptimal ? 'bg-green-100 border-2 border-green-300' : 'bg-white';
-                html += '<div class="p-3 rounded-lg ' + divClass + '">';
-                html += '<p class="text-sm">';
-                html += '<span class="font-semibold">Vértice ' + (i + 1) + ':</span> X₁ = ' + v.x1.toFixed(2) + ', X₂ = ' + v.x2.toFixed(2) + ' → Z = ' + v.z.toFixed(2);
-                if (isOptimal) {
-                    html += '<span class="ml-2 text-green-600 font-bold">★ ÓTIMO</span>';
-                }
-                html += '</p></div>';
+            // Credenciais de teste
+            if (username === 'admin' && password === 'senha123') {
+                messageDiv.className = 'message success show';
+                messageDiv.textContent = 'Login realizado com sucesso! Bem-vindo, ' + username + '!';
+                document.getElementById('login-form').reset();
+            } else {
+                messageDiv.className = 'message error show';
+                messageDiv.textContent = 'Usuário ou senha incorretos. Tente novamente.';
             }
             
-            html += '</div></div></div>';
-            container.innerHTML = html;
-        }
+            setTimeout(() => {
+                messageDiv.classList.remove('show');
+            }, 5000);
+        });
 
-        function showError(message) {
-            var container = document.getElementById('resultContainer');
-            var html = '<div class="bg-red-50 border-2 border-red-200 rounded-lg p-6 animate-fade-in">';
-            html += '<div class="flex items-center gap-3 text-red-700">';
-            html += '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
-            html += '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
-            html += '</svg>';
-            html += '<p class="font-semibold">' + message + '</p>';
-            html += '</div></div>';
-            container.innerHTML = html;
-        }
-
-        function plotGraph(constraintsList, vertices, optimal, c1, c2) {
-            var maxX1 = 10;
-            var maxX2 = 10;
+        // Search functionality
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#projects-tbody tr');
             
-            for (var i = 0; i < vertices.length; i++) {
-                if (vertices[i].x1 > maxX1) maxX1 = vertices[i].x1;
-                if (vertices[i].x2 > maxX2) maxX2 = vertices[i].x2;
-            }
-            
-            maxX1 *= 1.3;
-            maxX2 *= 1.3;
-
-            var traces = [];
-
-            for (var idx = 0; idx < constraints.length; idx++) {
-                var c = constraints[idx];
-                var x1Points = [];
-                var x2Points = [];
-                
-                for (var x1 = 0; x1 <= maxX1; x1 += maxX1 / 100) {
-                    if (c.a2 !== 0) {
-                        var x2 = (c.b - c.a1 * x1) / c.a2;
-                        if (x2 >= 0 && x2 <= maxX2) {
-                            x1Points.push(x1);
-                            x2Points.push(x2);
-                        }
-                    }
-                }
-
-                traces.push({
-                    x: x1Points,
-                    y: x2Points,
-                    mode: 'lines',
-                    name: 'Restrição ' + (idx + 1),
-                    line: { width: 2 }
-                });
-            }
-
-            var sortedVertices = vertices.slice().sort(function(a, b) {
-                var angleA = Math.atan2(a.x2, a.x1);
-                var angleB = Math.atan2(b.x2, b.x1);
-                return angleA - angleB;
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
             });
+        });
 
-            var polyX = sortedVertices.map(function(v) { return v.x1; });
-            var polyY = sortedVertices.map(function(v) { return v.x2; });
-            polyX.push(sortedVertices[0].x1);
-            polyY.push(sortedVertices[0].x2);
-
-            traces.push({
-                x: polyX,
-                y: polyY,
-                fill: 'toself',
-                fillcolor: 'rgba(99, 102, 241, 0.2)',
-                line: { color: 'rgba(99, 102, 241, 0.5)', width: 2 },
-                mode: 'lines',
-                name: 'Região Factível'
-            });
-
-            traces.push({
-                x: vertices.map(function(v) { return v.x1; }),
-                y: vertices.map(function(v) { return v.x2; }),
-                mode: 'markers+text',
-                name: 'Vértices',
-                marker: { size: 10, color: 'blue' },
-                text: vertices.map(function(v, i) { return 'V' + (i + 1); }),
-                textposition: 'top center'
-            });
-
-            traces.push({
-                x: [optimal.x1],
-                y: [optimal.x2],
-                mode: 'markers+text',
-                name: 'Solução Ótima',
-                marker: { size: 15, color: 'red', symbol: 'star' },
-                text: ['★ ÓTIMO'],
-                textposition: 'bottom center',
-                textfont: { size: 14, color: 'red', family: 'Arial Black' }
-            });
-
-            var layout = {
-                title: 'Região Factível e Solução Ótima',
-                xaxis: { title: 'X₁', range: [0, maxX1] },
-                yaxis: { title: 'X₂', range: [0, maxX2] },
-                showlegend: true,
-                hovermode: 'closest'
-            };
-
-            Plotly.newPlot('graph', traces, layout, {responsive: true});
-            document.getElementById('graphSection').classList.remove('hidden');
+        // Edit Project
+        function editProject(id) {
+            const row = document.querySelector(`tr[data-id="${id}"]`);
+            const projectName = row.children[1].textContent;
+            alert(`Editando projeto: ${projectName} (ID: ${id})`);
         }
 
-        renderConstraints();
+        // Delete Project
+        function deleteProject(id) {
+            if (confirm('Tem certeza que deseja excluir este projeto?')) {
+                const row = document.querySelector(`tr[data-id="${id}"]`);
+                row.style.transition = 'opacity 0.5s';
+                row.style.opacity = '0';
+                setTimeout(() => {
+                    row.remove();
+                    alert('Projeto excluído com sucesso!');
+                }, 500);
+            }
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Service cards click
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const serviceName = this.querySelector('h3').textContent;
+                alert(`Você selecionou: ${serviceName}\nEm breve mais informações!`);
+            });
+        });
     </script>
 </body>
 </html>
